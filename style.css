@@ -400,3 +400,57 @@ body.dark .filter-button.active {
     background: #6c4ccf;
     color: white;
 }
+
+/* ====================
+   TASK CONTENT
+==================== */
+
+.task-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.task-date {
+    color: #777;
+    font-size: 12px;
+}
+
+
+body.dark .task-date {
+    color: #aaa;
+}
+
+
+/* ====================
+   TASK INPUT WITH DATE
+==================== */
+
+#taskDueDate {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+}
+
+
+body.dark #taskDueDate {
+    background: #17151f;
+    color: white;
+    border-color: #444;
+}
+
+
+/* ====================
+   MOBILE TASK INPUT
+==================== */
+
+@media (max-width: 768px) {
+
+    #taskDueDate {
+        width: 100%;
+    }
+
+}

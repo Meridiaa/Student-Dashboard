@@ -1,17 +1,26 @@
 const taskInput = document.getElementById("taskInput");
+const taskDueDate = document.getElementById("taskDueDate");
 const addTaskButton = document.getElementById("addTask");
 const taskList = document.getElementById("taskList");
 
-const totalTasksElement = document.getElementById("totalTasks");
-const completedTasksElement = document.getElementById("completedTasks");
-const progressPercentageElement = document.getElementById("progressPercentage");
+const totalTasksElement =
+    document.getElementById("totalTasks");
+
+const completedTasksElement =
+    document.getElementById("completedTasks");
+
+const progressPercentageElement =
+    document.getElementById("progressPercentage");
 
 
 // ====================
 // TASK DATA
 // ====================
 
-let tasks = JSON.parse(localStorage.getItem("studentTasks")) || [];
+let tasks =
+    JSON.parse(
+        localStorage.getItem("studentTasks")
+    ) || [];
 
 let currentFilter = "all";
 
@@ -57,7 +66,8 @@ function displayTasks() {
         }
 
 
-        const task = document.createElement("li");
+        const task =
+            document.createElement("li");
 
 
         if (taskData.completed) {
@@ -67,9 +77,16 @@ function displayTasks() {
         }
 
 
+        const taskContent =
+            document.createElement("div");
+
+        taskContent.classList.add(
+            "task-content"
+        );
+
+
         const taskTextElement =
             document.createElement("span");
-
 
         taskTextElement.textContent =
             taskData.text;
@@ -90,11 +107,35 @@ function displayTasks() {
         );
 
 
+        taskContent.appendChild(
+            taskTextElement
+        );
+
+
+        if (taskData.dueDate) {
+
+            const dueDateElement =
+                document.createElement("small");
+
+            dueDateElement.textContent =
+                "📅 " + taskData.dueDate;
+
+            dueDateElement.classList.add(
+                "task-date"
+            );
+
+            taskContent.appendChild(
+                dueDateElement
+            );
+
+        }
+
+
         const deleteButton =
             document.createElement("button");
 
-
-        deleteButton.textContent = "Delete";
+        deleteButton.textContent =
+            "Delete";
 
 
         deleteButton.addEventListener(
@@ -111,7 +152,7 @@ function displayTasks() {
         );
 
 
-        task.appendChild(taskTextElement);
+        task.appendChild(taskContent);
 
         task.appendChild(deleteButton);
 
@@ -131,7 +172,8 @@ function displayTasks() {
 
 function updateStatistics() {
 
-    const totalTasks = tasks.length;
+    const totalTasks =
+        tasks.length;
 
     let completedTasks = 0;
 
@@ -152,9 +194,10 @@ function updateStatistics() {
 
     if (totalTasks > 0) {
 
-        progress = Math.round(
-            (completedTasks / totalTasks) * 100
-        );
+        progress =
+            Math.round(
+                (completedTasks / totalTasks) * 100
+            );
 
     }
 
@@ -182,6 +225,9 @@ addTaskButton.addEventListener(
         const taskText =
             taskInput.value.trim();
 
+        const dueDate =
+            taskDueDate.value;
+
 
         if (taskText === "") {
 
@@ -196,7 +242,9 @@ addTaskButton.addEventListener(
 
             text: taskText,
 
-            completed: false
+            completed: false,
+
+            dueDate: dueDate
 
         };
 
@@ -207,7 +255,10 @@ addTaskButton.addEventListener(
 
         displayTasks();
 
+
         taskInput.value = "";
+
+        taskDueDate.value = "";
 
     }
 );
@@ -236,7 +287,9 @@ taskInput.addEventListener(
 // ====================
 
 const filterButtons =
-    document.querySelectorAll(".filter-button");
+    document.querySelectorAll(
+        ".filter-button"
+    );
 
 
 filterButtons.forEach(function (button) {
@@ -260,7 +313,9 @@ filterButtons.forEach(function (button) {
             );
 
 
-            button.classList.add("active");
+            button.classList.add(
+                "active"
+            );
 
 
             displayTasks();
@@ -476,7 +531,9 @@ const notesElement =
 
 
 const savedNotes =
-    localStorage.getItem("studentNotes");
+    localStorage.getItem(
+        "studentNotes"
+    );
 
 
 if (savedNotes !== null) {
@@ -505,11 +562,15 @@ notesElement.addEventListener(
 // ====================
 
 const themeToggle =
-    document.getElementById("themeToggle");
+    document.getElementById(
+        "themeToggle"
+    );
 
 
 const savedTheme =
-    localStorage.getItem("studentTheme");
+    localStorage.getItem(
+        "studentTheme"
+    );
 
 
 if (savedTheme === "dark") {
@@ -526,11 +587,15 @@ themeToggle.addEventListener(
     "click",
     function () {
 
-        document.body.classList.toggle("dark");
+        document.body.classList.toggle(
+            "dark"
+        );
 
 
         if (
-            document.body.classList.contains("dark")
+            document.body.classList.contains(
+                "dark"
+            )
         ) {
 
             localStorage.setItem(
