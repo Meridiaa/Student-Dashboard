@@ -97,30 +97,19 @@ addTaskButton.addEventListener("click", function () {
 // ====================
 
 const WORK_TIME = 25 * 60;
-
 const BREAK_TIME = 5 * 60;
 
 let timeLeft = WORK_TIME;
-
 let timerInterval = null;
-
 let isWorkSession = true;
 
-
 const timerDisplay = document.getElementById("timer");
-
 const timerMode = document.getElementById("timerMode");
 
 const startTimerButton = document.getElementById("startTimer");
-
 const pauseTimerButton = document.getElementById("pauseTimer");
-
 const resetTimerButton = document.getElementById("resetTimer");
 
-
-// ====================
-// UPDATE TIMER DISPLAY
-// ====================
 
 function updateTimerDisplay() {
 
@@ -138,10 +127,6 @@ function updateTimerDisplay() {
 }
 
 
-// ====================
-// UPDATE SESSION MODE
-// ====================
-
 function updateTimerMode() {
 
     if (isWorkSession) {
@@ -156,10 +141,6 @@ function updateTimerMode() {
 
 }
 
-
-// ====================
-// SWITCH SESSION
-// ====================
 
 function switchSession() {
 
@@ -190,10 +171,6 @@ function switchSession() {
 }
 
 
-// ====================
-// START TIMER
-// ====================
-
 startTimerButton.addEventListener("click", function () {
 
     if (timerInterval !== null) {
@@ -219,10 +196,6 @@ startTimerButton.addEventListener("click", function () {
 });
 
 
-// ====================
-// PAUSE TIMER
-// ====================
-
 pauseTimerButton.addEventListener("click", function () {
 
     clearInterval(timerInterval);
@@ -231,10 +204,6 @@ pauseTimerButton.addEventListener("click", function () {
 
 });
 
-
-// ====================
-// RESET TIMER
-// ====================
 
 resetTimerButton.addEventListener("click", function () {
 
@@ -254,9 +223,36 @@ resetTimerButton.addEventListener("click", function () {
 
 
 // ====================
+// NOTES + LOCAL STORAGE
+// ====================
+
+const notesElement = document.getElementById("notes");
+
+const savedNotes = localStorage.getItem("studentNotes");
+
+if (savedNotes !== null) {
+
+    notesElement.value = savedNotes;
+
+}
+
+
+notesElement.addEventListener("input", function () {
+
+    localStorage.setItem(
+        "studentNotes",
+        notesElement.value
+    );
+
+});
+
+
+// ====================
 // INITIAL DISPLAY
 // ====================
 
 updateTimerMode();
 
 updateTimerDisplay();
+
+updateStatistics();
