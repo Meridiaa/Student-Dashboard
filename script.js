@@ -63,7 +63,26 @@ function isOverdue(taskData) {
 
 
 // ====================
-// DISPLAY PRIORITY
+// PRIORITY VALUE
+// ====================
+
+function getPriorityValue(priority) {
+
+    if (priority === "high") {
+        return 1;
+    }
+
+    if (priority === "medium") {
+        return 2;
+    }
+
+    return 3;
+
+}
+
+
+// ====================
+// PRIORITY LABEL
 // ====================
 
 function getPriorityLabel(priority) {
@@ -90,7 +109,26 @@ function displayTasks() {
     taskList.innerHTML = "";
 
 
-    tasks.forEach(function (taskData, index) {
+    const sortedTasks =
+        [...tasks].sort(function (a, b) {
+
+            return (
+                getPriorityValue(
+                    a.priority || "medium"
+                ) -
+                getPriorityValue(
+                    b.priority || "medium"
+                )
+            );
+
+        });
+
+
+    sortedTasks.forEach(function (taskData) {
+
+        const originalIndex =
+            tasks.indexOf(taskData);
+
 
         if (
             currentFilter === "active" &&
@@ -113,12 +151,16 @@ function displayTasks() {
 
 
         if (taskData.completed) {
+
             task.classList.add("completed");
+
         }
 
 
         if (isOverdue(taskData)) {
+
             task.classList.add("overdue");
+
         }
 
 
@@ -232,7 +274,10 @@ function displayTasks() {
             "click",
             function () {
 
-                tasks.splice(index, 1);
+                tasks.splice(
+                    originalIndex,
+                    1
+                );
 
                 saveTasks();
 
@@ -271,7 +316,9 @@ function updateStatistics() {
     tasks.forEach(function (task) {
 
         if (task.completed) {
+
             completedTasks++;
+
         }
 
     });
@@ -526,6 +573,7 @@ displayStudyStreak();
 // ====================
 
 const WORK_TIME = 25 * 60;
+
 const BREAK_TIME = 5 * 60;
 
 let timeLeft = WORK_TIME;
