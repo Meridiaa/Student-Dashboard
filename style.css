@@ -177,3 +177,8 @@ textarea {
     }
 
 }
+
+#taskList li.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
