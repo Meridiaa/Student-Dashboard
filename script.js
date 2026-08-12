@@ -79,3 +79,61 @@ addTaskButton.addEventListener("click", function () {
 
     taskInput.value = "";
 });
+
+let timeLeft = 25 * 60;
+let timerInterval = null;
+
+const timerDisplay = document.getElementById("timer");
+const startTimerButton = document.getElementById("startTimer");
+const resetTimerButton = document.getElementById("resetTimer");
+
+function updateTimerDisplay() {
+
+    const minutes = Math.floor(timeLeft / 60);
+
+    const seconds = timeLeft % 60;
+
+    const formattedSeconds = seconds < 10
+        ? "0" + seconds
+        : seconds;
+
+    timerDisplay.textContent =
+        minutes + ":" + formattedSeconds;
+}
+
+startTimerButton.addEventListener("click", function () {
+
+    if (timerInterval !== null) {
+        return;
+    }
+
+    timerInterval = setInterval(function () {
+
+        if (timeLeft > 0) {
+
+            timeLeft--;
+
+            updateTimerDisplay();
+
+        } else {
+
+            clearInterval(timerInterval);
+
+            timerInterval = null;
+
+            alert("Pomodoro complete! 🎉");
+        }
+
+    }, 1000);
+});
+
+resetTimerButton.addEventListener("click", function () {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+    timeLeft = 25 * 60;
+
+    updateTimerDisplay();
+});
