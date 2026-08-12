@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyFlow | Student Productivity Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>StudyFlow</h1>
+
+        <nav>
+            <a href="#">Dashboard</a>
+            <a href="#">Tasks</a>
+            <a href="#">Notes</a>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <section class="welcome">
+            <h2>Good morning 👋</h2>
+            <p>Let's get things done.</p>
+        </section>
+
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <h3>Total Tasks</h3>
+                <p>8</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Completed</h3>
+                <p>5</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Progress</h3>
+                <p>62%</p>
+            </div>
+
+        </section>
+
+
+        <section class="dashboard-grid">
+
+            <div class="tasks">
+                <h2>Today's Tasks</h2>
+
+                <input 
+                    type="text" 
+                    id="taskInput"
+                    placeholder="Enter a task..."
+                >
+
+                <button id="addTask">Add Task</button>
+
+                <ul id="taskList">
+                    <li>Study DSA</li>
+                    <li>Complete college work</li>
+                    <li>Practice Java</li>
+                </ul>
+            </div>
+
+
+            <div class="pomodoro">
+
+                <h2>Pomodoro Timer</h2>
+
+                <div id="timer">
+                    25:00
+                </div>
+
+                <button id="startTimer">Start</button>
+                <button id="resetTimer">Reset</button>
+
+            </div>
+
+        </section>
+
+
+        <section class="notes">
+
+            <h2>Quick Notes</h2>
+
+            <textarea
+                id="notes"
+                placeholder="Write something..."
+            ></textarea>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
