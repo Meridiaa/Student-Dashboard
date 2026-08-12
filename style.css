@@ -454,3 +454,29 @@ body.dark #taskDueDate {
     }
 
 }
+
+/* ====================
+   OVERDUE TASK
+==================== */
+
+#taskList li.overdue {
+    border-left: 4px solid #e74c3c;
+    padding-left: 10px;
+}
+
+
+.overdue-label {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
+body.dark #taskList li.overdue {
+    border-left-color: #ff6b6b;
+}
+
+
+body.dark .overdue-label {
+    color: #ff6b6b;
+}

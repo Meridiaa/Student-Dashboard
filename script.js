@@ -40,6 +40,29 @@ function saveTasks() {
 
 
 // ====================
+// CHECK OVERDUE
+// ====================
+
+function isOverdue(taskData) {
+
+    if (!taskData.dueDate || taskData.completed) {
+        return false;
+    }
+
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    const dueDate = new Date(
+        taskData.dueDate + "T00:00:00"
+    );
+
+    return dueDate < today;
+
+}
+
+
+// ====================
 // DISPLAY TASKS
 // ====================
 
@@ -73,6 +96,13 @@ function displayTasks() {
         if (taskData.completed) {
 
             task.classList.add("completed");
+
+        }
+
+
+        if (isOverdue(taskData)) {
+
+            task.classList.add("overdue");
 
         }
 
@@ -126,6 +156,25 @@ function displayTasks() {
 
             taskContent.appendChild(
                 dueDateElement
+            );
+
+        }
+
+
+        if (isOverdue(taskData)) {
+
+            const overdueElement =
+                document.createElement("small");
+
+            overdueElement.textContent =
+                "⚠️ Overdue";
+
+            overdueElement.classList.add(
+                "overdue-label"
+            );
+
+            taskContent.appendChild(
+                overdueElement
             );
 
         }
