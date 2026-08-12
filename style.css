@@ -693,3 +693,132 @@ body.dark .progress-bar-container {
     }
 
 }
+
+/* ====================
+   FOOTER
+==================== */
+
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 30px;
+    color: #777;
+    font-size: 14px;
+}
+
+
+body.dark footer {
+    color: #999;
+}
+
+
+/* ====================
+   BETTER MOBILE LAYOUT
+==================== */
+
+@media (max-width: 600px) {
+
+    main {
+        width: 92%;
+        margin: 25px auto;
+    }
+
+
+    header {
+        padding: 20px;
+    }
+
+
+    header h1 {
+        font-size: 24px;
+    }
+
+
+    nav {
+        gap: 10px;
+    }
+
+
+    nav a {
+        font-size: 13px;
+    }
+
+
+    nav button {
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+
+
+    .welcome h2 {
+        font-size: 26px;
+    }
+
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+
+    .stat-card {
+        padding: 18px;
+    }
+
+
+    .stat-card h3 {
+        font-size: 14px;
+    }
+
+
+    .stat-card p {
+        font-size: 25px;
+    }
+
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .tasks,
+    .pomodoro,
+    .notes,
+    .progress-section {
+        padding: 20px;
+    }
+
+
+    .task-input {
+        flex-direction: column;
+    }
+
+
+    #taskInput,
+    #taskDueDate,
+    #taskPriority,
+    #addTask {
+        width: 100%;
+    }
+
+
+    .task-filters {
+        flex-wrap: wrap;
+    }
+
+
+    .filter-button {
+        flex: 1;
+    }
+
+
+    #timer {
+        font-size: 42px;
+    }
+
+
+    footer {
+        font-size: 12px;
+    }
+
+}

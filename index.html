@@ -2,29 +2,52 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>StudyFlow | Student Productivity Dashboard</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-    <!-- Header -->
+    <!-- HEADER -->
+
     <header>
 
         <h1>StudyFlow</h1>
 
+
         <nav>
-            <a href="#">Dashboard</a>
-            <a href="#">Tasks</a>
-            <a href="#">Notes</a>
+
+            <a href="#">
+                Dashboard
+            </a>
+
+            <a href="#">
+                Tasks
+            </a>
+
+            <a href="#">
+                Notes
+            </a>
+
 
             <button id="themeToggle">
                 🌙 Dark Mode
             </button>
+
         </nav>
 
     </header>
@@ -32,203 +55,302 @@
 
     <main>
 
-        <!-- Welcome -->
+
+        <!-- WELCOME -->
+
         <section class="welcome">
 
-            <h2>Good morning 👋</h2>
+            <h2>
+                Good morning 👋
+            </h2>
 
-            <p>Let's get things done.</p>
+            <p>
+                Let's get things done.
+            </p>
 
         </section>
 
 
-<!-- Statistics Section -->
-<section class="stats">
+        <!-- STATISTICS -->
 
-    <div class="stat-card">
-
-        <h3>Total Tasks</h3>
-
-        <p id="totalTasks">0</p>
-
-    </div>
+        <section class="stats">
 
 
-    <div class="stat-card">
+            <div class="stat-card">
 
-        <h3>Completed</h3>
+                <h3>
+                    Total Tasks
+                </h3>
 
-        <p id="completedTasks">0</p>
+                <p id="totalTasks">
+                    0
+                </p>
 
-    </div>
-
-
-    <div class="stat-card">
-
-        <h3>Progress</h3>
-
-        <p id="progressPercentage">0%</p>
-
-    </div>
+            </div>
 
 
-    <div class="stat-card">
+            <div class="stat-card">
 
-        <h3>Study Streak 🔥</h3>
+                <h3>
+                    Completed
+                </h3>
 
-        <p id="studyStreak">0 days</p>
+                <p id="completedTasks">
+                    0
+                </p>
 
-    </div>
-
-</section>
-
-
-<!-- Progress Section -->
-<section class="progress-section">
-
-    <div class="progress-header">
-
-        <h2>Today's Progress</h2>
-
-        <span id="progressMessage">
-            Keep going! 💪
-        </span>
-
-    </div>
+            </div>
 
 
-    <div class="progress-bar-container">
+            <div class="stat-card">
 
-        <div
-            id="progressBar"
-            class="progress-bar">
-        </div>
+                <h3>
+                    Progress
+                </h3>
 
-    </div>
+                <p id="progressPercentage">
+                    0%
+                </p>
 
-</section>
-        <!-- Dashboard -->
+            </div>
+
+
+            <div class="stat-card">
+
+                <h3>
+                    Study Streak 🔥
+                </h3>
+
+                <p id="studyStreak">
+                    0 days
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- PROGRESS -->
+
+        <section class="progress-section">
+
+
+            <div class="progress-header">
+
+                <h2>
+                    Today's Progress
+                </h2>
+
+
+                <span id="progressMessage">
+                    Keep going! 💪
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar-container">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar">
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- DASHBOARD -->
+
         <section class="dashboard-grid">
 
 
-<!-- Tasks Section -->
-<div class="tasks">
+            <!-- TASKS -->
 
-    <h2>Today's Tasks</h2>
-
-    <div class="task-input">
-
-        <input
-            type="text"
-            id="taskInput"
-            placeholder="Enter a task..."
-        >
-
-        <input
-            type="date"
-            id="taskDueDate"
-        >
-
-        <select id="taskPriority">
-
-            <option value="high">🔴 High</option>
-
-            <option value="medium" selected>🟡 Medium</option>
-
-            <option value="low">🟢 Low</option>
-
-        </select>
-
-        <button id="addTask">
-            Add Task
-        </button>
-
-    </div>
+            <div class="tasks">
 
 
-    <!-- Search -->
-    <div class="task-search">
-
-        <input
-            type="text"
-            id="taskSearch"
-            placeholder="🔎 Search tasks..."
-        >
-
-    </div>
+                <h2>
+                    Today's Tasks
+                </h2>
 
 
-    <!-- Filters -->
-    <div class="task-filters">
-
-        <button
-            class="filter-button active"
-            data-filter="all">
-            All
-        </button>
-
-        <button
-            class="filter-button"
-            data-filter="active">
-            Active
-        </button>
-
-        <button
-            class="filter-button"
-            data-filter="completed">
-            Completed
-        </button>
-
-    </div>
+                <div class="task-input">
 
 
-    <ul id="taskList"></ul>
+                    <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="Enter a task..."
+                    >
 
-</div>
 
-            <!-- Pomodoro -->
+                    <input
+                        type="date"
+                        id="taskDueDate"
+                    >
+
+
+                    <select id="taskPriority">
+
+                        <option value="high">
+                            🔴 High
+                        </option>
+
+                        <option
+                            value="medium"
+                            selected>
+                            🟡 Medium
+                        </option>
+
+                        <option value="low">
+                            🟢 Low
+                        </option>
+
+                    </select>
+
+
+                    <button id="addTask">
+                        Add Task
+                    </button>
+
+
+                </div>
+
+
+                <!-- SEARCH -->
+
+                <div class="task-search">
+
+                    <input
+                        type="text"
+                        id="taskSearch"
+                        placeholder="🔎 Search tasks..."
+                    >
+
+                </div>
+
+
+                <!-- FILTERS -->
+
+                <div class="task-filters">
+
+
+                    <button
+                        class="filter-button active"
+                        data-filter="all">
+
+                        All
+
+                    </button>
+
+
+                    <button
+                        class="filter-button"
+                        data-filter="active">
+
+                        Active
+
+                    </button>
+
+
+                    <button
+                        class="filter-button"
+                        data-filter="completed">
+
+                        Completed
+
+                    </button>
+
+
+                </div>
+
+
+                <ul id="taskList"></ul>
+
+
+            </div>
+
+
+            <!-- POMODORO -->
+
             <div class="pomodoro">
 
-                <h2>Pomodoro Timer</h2>
+
+                <h2>
+                    Pomodoro Timer
+                </h2>
+
 
                 <h3 id="timerMode">
                     Work Session
                 </h3>
 
+
                 <div id="timer">
                     25:00
                 </div>
+
 
                 <button id="startTimer">
                     Start
                 </button>
 
+
                 <button id="pauseTimer">
                     Pause
                 </button>
+
 
                 <button id="resetTimer">
                     Reset
                 </button>
 
+
             </div>
+
 
         </section>
 
 
-        <!-- Notes -->
+        <!-- NOTES -->
+
         <section class="notes">
 
-            <h2>Quick Notes</h2>
+
+            <h2>
+                Quick Notes
+            </h2>
+
 
             <textarea
                 id="notes"
                 placeholder="Write something..."
             ></textarea>
 
+
         </section>
 
+
     </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            StudyFlow © 2026
+        </p>
+
+        <p>
+            Built with HTML, CSS & JavaScript 💜
+        </p>
+
+    </footer>
 
 
     <script src="script.js"></script>
