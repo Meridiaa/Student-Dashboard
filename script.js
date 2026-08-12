@@ -401,3 +401,42 @@ displayTasks();
 updateTimerMode();
 
 updateTimerDisplay();
+
+// ====================
+// DARK MODE
+// ====================
+
+const themeToggle = document.getElementById("themeToggle");
+
+const savedTheme = localStorage.getItem("studentTheme");
+
+
+if (savedTheme === "dark") {
+
+    document.body.classList.add("dark");
+
+    themeToggle.textContent = "☀️ Light Mode";
+
+}
+
+
+themeToggle.addEventListener("click", function () {
+
+    document.body.classList.toggle("dark");
+
+
+    if (document.body.classList.contains("dark")) {
+
+        localStorage.setItem("studentTheme", "dark");
+
+        themeToggle.textContent = "☀️ Light Mode";
+
+    } else {
+
+        localStorage.setItem("studentTheme", "light");
+
+        themeToggle.textContent = "🌙 Dark Mode";
+
+    }
+
+});

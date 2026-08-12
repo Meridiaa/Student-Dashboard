@@ -21,6 +21,10 @@
             <a href="#">Dashboard</a>
             <a href="#">Tasks</a>
             <a href="#">Notes</a>
+
+            <button id="themeToggle">
+                🌙 Dark Mode
+            </button>
         </nav>
 
     </header>
@@ -28,7 +32,7 @@
 
     <main>
 
-        <!-- Welcome Section -->
+        <!-- Welcome -->
         <section class="welcome">
 
             <h2>Good morning 👋</h2>
@@ -38,7 +42,7 @@
         </section>
 
 
-        <!-- Statistics Section -->
+        <!-- Statistics -->
         <section class="stats">
 
             <div class="stat-card">
@@ -70,15 +74,14 @@
         </section>
 
 
-        <!-- Main Dashboard -->
+        <!-- Dashboard -->
         <section class="dashboard-grid">
 
 
-            <!-- Tasks Section -->
+            <!-- Tasks -->
             <div class="tasks">
 
                 <h2>Today's Tasks</h2>
-
 
                 <div class="task-input">
 
@@ -95,69 +98,56 @@
                 </div>
 
 
-                <ul id="taskList">
-
-                    <li>
-                        <span>Study DSA</span>
-                        <button>Delete</button>
-                    </li>
-
-                    <li>
-                        <span>Complete college work</span>
-                        <button>Delete</button>
-                    </li>
-
-                    <li>
-                        <span>Practice Java</span>
-                        <button>Delete</button>
-                    </li>
-
-                </ul>
+                <ul id="taskList"></ul>
 
             </div>
 
 
- <!-- Pomodoro Section -->
-<div class="pomodoro">
+            <!-- Pomodoro -->
+            <div class="pomodoro">
 
-    <h2>Pomodoro Timer</h2>
+                <h2>Pomodoro Timer</h2>
 
-    <h3 id="timerMode">Work Session</h3>
+                <h3 id="timerMode">
+                    Work Session
+                </h3>
 
-    <div id="timer">
-        25:00
-    </div>
+                <div id="timer">
+                    25:00
+                </div>
 
-    <button id="startTimer">
-        Start
-    </button>
+                <button id="startTimer">
+                    Start
+                </button>
 
-    <button id="pauseTimer">
-        Pause
-    </button>
+                <button id="pauseTimer">
+                    Pause
+                </button>
 
-    <button id="resetTimer">
-        Reset
-    </button>
+                <button id="resetTimer">
+                    Reset
+                </button>
 
-</div>
+            </div>
 
-<!-- Notes Section -->
-<section class="notes">
+        </section>
 
-    <h2>Quick Notes</h2>
 
-    <textarea
-        id="notes"
-        placeholder="Write something..."
-    ></textarea>
+        <!-- Notes -->
+        <section class="notes">
 
-</section>
+            <h2>Quick Notes</h2>
+
+            <textarea
+                id="notes"
+                placeholder="Write something..."
+            ></textarea>
+
+        </section>
 
     </main>
 
 
-    <!-- JavaScript -->
     <script src="script.js"></script>
 
 </body>

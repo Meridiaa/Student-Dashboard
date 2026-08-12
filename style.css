@@ -4,12 +4,19 @@
     box-sizing: border-box;
 }
 
+
 body {
     font-family: Arial, sans-serif;
     background: #f5f3ff;
     color: #25223a;
     min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
 }
+
+
+/* ====================
+   HEADER
+==================== */
 
 header {
     background: white;
@@ -18,16 +25,21 @@ header {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: background 0.3s;
 }
+
 
 header h1 {
     color: #6c4ccf;
 }
 
+
 nav {
     display: flex;
-    gap: 25px;
+    align-items: center;
+    gap: 20px;
 }
+
 
 nav a {
     text-decoration: none;
@@ -35,9 +47,15 @@ nav a {
     font-weight: 500;
 }
 
+
 nav a:hover {
     color: #6c4ccf;
 }
+
+
+/* ====================
+   MAIN
+==================== */
 
 main {
     width: 84%;
@@ -45,18 +63,26 @@ main {
     margin: 40px auto;
 }
 
+
 .welcome {
     margin-bottom: 30px;
 }
+
 
 .welcome h2 {
     font-size: 32px;
     margin-bottom: 8px;
 }
 
+
 .welcome p {
     color: #777;
 }
+
+
+/* ====================
+   STATISTICS
+==================== */
 
 .stats {
     display: grid;
@@ -65,23 +91,32 @@ main {
     margin-bottom: 30px;
 }
 
+
 .stat-card {
     background: white;
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: background 0.3s;
 }
+
 
 .stat-card h3 {
     color: #777;
     margin-bottom: 10px;
 }
 
+
 .stat-card p {
     font-size: 30px;
     font-weight: bold;
     color: #6c4ccf;
 }
+
+
+/* ====================
+   DASHBOARD GRID
+==================== */
 
 .dashboard-grid {
     display: grid;
@@ -90,6 +125,7 @@ main {
     margin-bottom: 30px;
 }
 
+
 .tasks,
 .pomodoro,
 .notes {
@@ -97,7 +133,9 @@ main {
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: background 0.3s;
 }
+
 
 .tasks h2,
 .pomodoro h2,
@@ -105,12 +143,29 @@ main {
     margin-bottom: 20px;
 }
 
+
+/* ====================
+   TASK INPUT
+==================== */
+
+.task-input {
+    display: flex;
+    gap: 10px;
+}
+
+
 #taskInput {
-    width: 70%;
+    flex: 1;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 8px;
+    outline: none;
 }
+
+
+/* ====================
+   BUTTONS
+==================== */
 
 button {
     padding: 12px 18px;
@@ -119,69 +174,24 @@ button {
     background: #6c4ccf;
     color: white;
     cursor: pointer;
+    transition: opacity 0.2s;
 }
 
+
 button:hover {
-    opacity: 0.9;
+    opacity: 0.85;
 }
+
+
+/* ====================
+   TASK LIST
+==================== */
 
 #taskList {
     list-style: none;
     margin-top: 20px;
 }
 
-#taskList li {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-}
-
-#timer {
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    margin: 30px 0;
-    color: #6c4ccf;
-}
-
-.pomodoro {
-    text-align: center;
-}
-
-textarea {
-    width: 100%;
-    height: 150px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    resize: vertical;
-}
-
-@media (max-width: 768px) {
-
-    header {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .stats {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-
-    #taskInput {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-}
-
-#taskList li.completed {
-    text-decoration: line-through;
-    opacity: 0.5;
-}
 
 #taskList li {
     display: flex;
@@ -191,12 +201,164 @@ textarea {
     border-bottom: 1px solid #eee;
 }
 
+
 #taskList li span {
     cursor: pointer;
 }
+
+
+#taskList li.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
 
 #taskList li button {
     background: #e74c3c;
     padding: 7px 12px;
     font-size: 13px;
+}
+
+
+/* ====================
+   POMODORO
+==================== */
+
+.pomodoro {
+    text-align: center;
+}
+
+
+#timerMode {
+    color: #777;
+    margin-bottom: 10px;
+}
+
+
+#timer {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 30px 0;
+    color: #6c4ccf;
+}
+
+
+/* ====================
+   NOTES
+==================== */
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    resize: vertical;
+    outline: none;
+}
+
+
+/* ====================
+   DARK MODE BUTTON
+==================== */
+
+#themeToggle {
+    background: #25223a;
+}
+
+
+/* ====================
+   DARK MODE
+==================== */
+
+body.dark {
+    background: #17151f;
+    color: #f1eff8;
+}
+
+
+body.dark header {
+    background: #211e2b;
+}
+
+
+body.dark nav a {
+    color: #ddd;
+}
+
+
+body.dark nav a:hover {
+    color: #a98df5;
+}
+
+
+body.dark .welcome p {
+    color: #aaa;
+}
+
+
+body.dark .stat-card,
+body.dark .tasks,
+body.dark .pomodoro,
+body.dark .notes {
+    background: #211e2b;
+}
+
+
+body.dark .stat-card h3,
+body.dark #timerMode {
+    color: #aaa;
+}
+
+
+body.dark #taskInput,
+body.dark textarea {
+    background: #17151f;
+    color: white;
+    border-color: #444;
+}
+
+
+body.dark #taskList li {
+    border-color: #3a3744;
+}
+
+
+/* ====================
+   RESPONSIVE DESIGN
+==================== */
+
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .task-input {
+        flex-direction: column;
+    }
+
+
+    #taskInput {
+        width: 100%;
+    }
+
 }
