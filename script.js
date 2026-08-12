@@ -8,34 +8,128 @@ const progressPercentageElement = document.getElementById("progressPercentage");
 
 
 // ====================
+// TASK DATA
+// ====================
+
+let tasks = JSON.parse(localStorage.getItem("studentTasks")) || [];
+
+
+// ====================
+// SAVE TASKS
+// ====================
+
+function saveTasks() {
+
+    localStorage.setItem(
+        "studentTasks",
+        JSON.stringify(tasks)
+    );
+
+}
+
+
+// ====================
+// DISPLAY TASKS
+// ====================
+
+function displayTasks() {
+
+    taskList.innerHTML = "";
+
+    tasks.forEach(function (taskData, index) {
+
+        const task = document.createElement("li");
+
+        if (taskData.completed) {
+            task.classList.add("completed");
+        }
+
+
+        const taskTextElement = document.createElement("span");
+
+        taskTextElement.textContent = taskData.text;
+
+
+        taskTextElement.addEventListener("click", function () {
+
+            taskData.completed = !taskData.completed;
+
+            saveTasks();
+
+            displayTasks();
+
+        });
+
+
+        const deleteButton = document.createElement("button");
+
+        deleteButton.textContent = "Delete";
+
+
+        deleteButton.addEventListener("click", function () {
+
+            tasks.splice(index, 1);
+
+            saveTasks();
+
+            displayTasks();
+
+        });
+
+
+        task.appendChild(taskTextElement);
+
+        task.appendChild(deleteButton);
+
+        taskList.appendChild(task);
+
+    });
+
+
+    updateStatistics();
+
+}
+
+
+// ====================
 // TASK STATISTICS
 // ====================
 
 function updateStatistics() {
 
-    const tasks = taskList.querySelectorAll("li");
-
     const totalTasks = tasks.length;
 
     let completedTasks = 0;
 
+
     tasks.forEach(function (task) {
 
-        if (task.classList.contains("completed")) {
+        if (task.completed) {
             completedTasks++;
         }
 
     });
 
+
     let progress = 0;
 
+
     if (totalTasks > 0) {
-        progress = Math.round((completedTasks / totalTasks) * 100);
+
+        progress = Math.round(
+            (completedTasks / totalTasks) * 100
+        );
+
     }
 
+
     totalTasksElement.textContent = totalTasks;
+
     completedTasksElement.textContent = completedTasks;
-    progressPercentageElement.textContent = progress + "%";
+
+    progressPercentageElement.textContent =
+        progress + "%";
+
 }
 
 
@@ -47,47 +141,47 @@ addTaskButton.addEventListener("click", function () {
 
     const taskText = taskInput.value.trim();
 
+
     if (taskText === "") {
+
         alert("Please enter a task.");
+
         return;
+
     }
 
-    const task = document.createElement("li");
 
-    const taskTextElement = document.createElement("span");
+    const newTask = {
 
-    taskTextElement.textContent = taskText;
+        text: taskText,
 
-    taskTextElement.addEventListener("click", function () {
+        completed: false
 
-        task.classList.toggle("completed");
-
-        updateStatistics();
-
-    });
+    };
 
 
-    const deleteButton = document.createElement("button");
+    tasks.push(newTask);
 
-    deleteButton.textContent = "Delete";
+    saveTasks();
 
-    deleteButton.addEventListener("click", function () {
-
-        task.remove();
-
-        updateStatistics();
-
-    });
-
-
-    task.appendChild(taskTextElement);
-    task.appendChild(deleteButton);
-
-    taskList.appendChild(task);
-
-    updateStatistics();
+    displayTasks();
 
     taskInput.value = "";
+
+});
+
+
+// ====================
+// ENTER KEY FOR TASK
+// ====================
+
+taskInput.addEventListener("keydown", function (event) {
+
+    if (event.key === "Enter") {
+
+        addTaskButton.click();
+
+    }
 
 });
 
@@ -97,19 +191,33 @@ addTaskButton.addEventListener("click", function () {
 // ====================
 
 const WORK_TIME = 25 * 60;
+
 const BREAK_TIME = 5 * 60;
 
 let timeLeft = WORK_TIME;
+
 let timerInterval = null;
+
 let isWorkSession = true;
 
+
 const timerDisplay = document.getElementById("timer");
+
 const timerMode = document.getElementById("timerMode");
 
-const startTimerButton = document.getElementById("startTimer");
-const pauseTimerButton = document.getElementById("pauseTimer");
-const resetTimerButton = document.getElementById("resetTimer");
+const startTimerButton =
+    document.getElementById("startTimer");
 
+const pauseTimerButton =
+    document.getElementById("pauseTimer");
+
+const resetTimerButton =
+    document.getElementById("resetTimer");
+
+
+// ====================
+// UPDATE TIMER DISPLAY
+// ====================
 
 function updateTimerDisplay() {
 
@@ -117,9 +225,11 @@ function updateTimerDisplay() {
 
     const seconds = timeLeft % 60;
 
+
     const formattedSeconds = seconds < 10
         ? "0" + seconds
         : seconds;
+
 
     timerDisplay.textContent =
         minutes + ":" + formattedSeconds;
@@ -127,20 +237,30 @@ function updateTimerDisplay() {
 }
 
 
+// ====================
+// UPDATE TIMER MODE
+// ====================
+
 function updateTimerMode() {
 
     if (isWorkSession) {
 
-        timerMode.textContent = "Work Session";
+        timerMode.textContent =
+            "Work Session";
 
     } else {
 
-        timerMode.textContent = "Break Time";
+        timerMode.textContent =
+            "Break Time";
 
     }
 
 }
 
+
+// ====================
+// SWITCH SESSION
+// ====================
 
 function switchSession() {
 
@@ -150,19 +270,25 @@ function switchSession() {
 
     isWorkSession = !isWorkSession;
 
+
     if (isWorkSession) {
 
         timeLeft = WORK_TIME;
 
-        alert("Break is over! Time to study. 📚");
+        alert(
+            "Break is over! Time to study. 📚"
+        );
 
     } else {
 
         timeLeft = BREAK_TIME;
 
-        alert("Work session complete! Take a break. ☕");
+        alert(
+            "Work session complete! Take a break. ☕"
+        );
 
     }
+
 
     updateTimerMode();
 
@@ -171,11 +297,18 @@ function switchSession() {
 }
 
 
+// ====================
+// START TIMER
+// ====================
+
 startTimerButton.addEventListener("click", function () {
 
     if (timerInterval !== null) {
+
         return;
+
     }
+
 
     timerInterval = setInterval(function () {
 
@@ -196,6 +329,10 @@ startTimerButton.addEventListener("click", function () {
 });
 
 
+// ====================
+// PAUSE TIMER
+// ====================
+
 pauseTimerButton.addEventListener("click", function () {
 
     clearInterval(timerInterval);
@@ -204,6 +341,10 @@ pauseTimerButton.addEventListener("click", function () {
 
 });
 
+
+// ====================
+// RESET TIMER
+// ====================
 
 resetTimerButton.addEventListener("click", function () {
 
@@ -226,9 +367,13 @@ resetTimerButton.addEventListener("click", function () {
 // NOTES + LOCAL STORAGE
 // ====================
 
-const notesElement = document.getElementById("notes");
+const notesElement =
+    document.getElementById("notes");
 
-const savedNotes = localStorage.getItem("studentNotes");
+
+const savedNotes =
+    localStorage.getItem("studentNotes");
+
 
 if (savedNotes !== null) {
 
@@ -248,11 +393,11 @@ notesElement.addEventListener("input", function () {
 
 
 // ====================
-// INITIAL DISPLAY
+// INITIAL LOAD
 // ====================
+
+displayTasks();
 
 updateTimerMode();
 
 updateTimerDisplay();
-
-updateStatistics();
