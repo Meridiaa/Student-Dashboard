@@ -63,6 +63,7 @@ addTaskButton.addEventListener("click", function () {
         task.classList.toggle("completed");
 
         updateStatistics();
+
     });
 
 
@@ -75,6 +76,7 @@ addTaskButton.addEventListener("click", function () {
         task.remove();
 
         updateStatistics();
+
     });
 
 
@@ -86,6 +88,7 @@ addTaskButton.addEventListener("click", function () {
     updateStatistics();
 
     taskInput.value = "";
+
 });
 
 
@@ -93,11 +96,20 @@ addTaskButton.addEventListener("click", function () {
 // POMODORO TIMER
 // ====================
 
-let timeLeft = 25 * 60;
+const WORK_TIME = 25 * 60;
+
+const BREAK_TIME = 5 * 60;
+
+let timeLeft = WORK_TIME;
 
 let timerInterval = null;
 
+let isWorkSession = true;
+
+
 const timerDisplay = document.getElementById("timer");
+
+const timerMode = document.getElementById("timerMode");
 
 const startTimerButton = document.getElementById("startTimer");
 
@@ -105,6 +117,10 @@ const pauseTimerButton = document.getElementById("pauseTimer");
 
 const resetTimerButton = document.getElementById("resetTimer");
 
+
+// ====================
+// UPDATE TIMER DISPLAY
+// ====================
 
 function updateTimerDisplay() {
 
@@ -118,10 +134,65 @@ function updateTimerDisplay() {
 
     timerDisplay.textContent =
         minutes + ":" + formattedSeconds;
+
 }
 
 
+// ====================
+// UPDATE SESSION MODE
+// ====================
+
+function updateTimerMode() {
+
+    if (isWorkSession) {
+
+        timerMode.textContent = "Work Session";
+
+    } else {
+
+        timerMode.textContent = "Break Time";
+
+    }
+
+}
+
+
+// ====================
+// SWITCH SESSION
+// ====================
+
+function switchSession() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+    isWorkSession = !isWorkSession;
+
+    if (isWorkSession) {
+
+        timeLeft = WORK_TIME;
+
+        alert("Break is over! Time to study. 📚");
+
+    } else {
+
+        timeLeft = BREAK_TIME;
+
+        alert("Work session complete! Take a break. ☕");
+
+    }
+
+    updateTimerMode();
+
+    updateTimerDisplay();
+
+}
+
+
+// ====================
 // START TIMER
+// ====================
 
 startTimerButton.addEventListener("click", function () {
 
@@ -139,11 +210,8 @@ startTimerButton.addEventListener("click", function () {
 
         } else {
 
-            clearInterval(timerInterval);
+            switchSession();
 
-            timerInterval = null;
-
-            alert("Pomodoro complete! 🎉");
         }
 
     }, 1000);
@@ -151,7 +219,9 @@ startTimerButton.addEventListener("click", function () {
 });
 
 
+// ====================
 // PAUSE TIMER
+// ====================
 
 pauseTimerButton.addEventListener("click", function () {
 
@@ -162,7 +232,9 @@ pauseTimerButton.addEventListener("click", function () {
 });
 
 
+// ====================
 // RESET TIMER
+// ====================
 
 resetTimerButton.addEventListener("click", function () {
 
@@ -170,13 +242,21 @@ resetTimerButton.addEventListener("click", function () {
 
     timerInterval = null;
 
-    timeLeft = 25 * 60;
+    isWorkSession = true;
+
+    timeLeft = WORK_TIME;
+
+    updateTimerMode();
 
     updateTimerDisplay();
 
 });
 
 
-// Initial timer display
+// ====================
+// INITIAL DISPLAY
+// ====================
+
+updateTimerMode();
 
 updateTimerDisplay();
