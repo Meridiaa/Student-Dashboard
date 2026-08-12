@@ -7,6 +7,10 @@ const completedTasksElement = document.getElementById("completedTasks");
 const progressPercentageElement = document.getElementById("progressPercentage");
 
 
+// ====================
+// TASK STATISTICS
+// ====================
+
 function updateStatistics() {
 
     const tasks = taskList.querySelectorAll("li");
@@ -34,6 +38,10 @@ function updateStatistics() {
     progressPercentageElement.textContent = progress + "%";
 }
 
+
+// ====================
+// ADD TASK
+// ====================
 
 addTaskButton.addEventListener("click", function () {
 
@@ -80,12 +88,23 @@ addTaskButton.addEventListener("click", function () {
     taskInput.value = "";
 });
 
+
+// ====================
+// POMODORO TIMER
+// ====================
+
 let timeLeft = 25 * 60;
+
 let timerInterval = null;
 
 const timerDisplay = document.getElementById("timer");
+
 const startTimerButton = document.getElementById("startTimer");
+
+const pauseTimerButton = document.getElementById("pauseTimer");
+
 const resetTimerButton = document.getElementById("resetTimer");
+
 
 function updateTimerDisplay() {
 
@@ -100,6 +119,9 @@ function updateTimerDisplay() {
     timerDisplay.textContent =
         minutes + ":" + formattedSeconds;
 }
+
+
+// START TIMER
 
 startTimerButton.addEventListener("click", function () {
 
@@ -125,7 +147,22 @@ startTimerButton.addEventListener("click", function () {
         }
 
     }, 1000);
+
 });
+
+
+// PAUSE TIMER
+
+pauseTimerButton.addEventListener("click", function () {
+
+    clearInterval(timerInterval);
+
+    timerInterval = null;
+
+});
+
+
+// RESET TIMER
 
 resetTimerButton.addEventListener("click", function () {
 
@@ -136,4 +173,10 @@ resetTimerButton.addEventListener("click", function () {
     timeLeft = 25 * 60;
 
     updateTimerDisplay();
+
 });
+
+
+// Initial timer display
+
+updateTimerDisplay();
