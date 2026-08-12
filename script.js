@@ -14,6 +14,12 @@ const completedTasksElement =
 const progressPercentageElement =
     document.getElementById("progressPercentage");
 
+const progressBar =
+    document.getElementById("progressBar");
+
+const progressMessage =
+    document.getElementById("progressMessage");
+
 
 // ====================
 // TASK DATA
@@ -58,7 +64,9 @@ function isOverdue(taskData) {
     today.setHours(0, 0, 0, 0);
 
     const dueDate =
-        new Date(taskData.dueDate + "T00:00:00");
+        new Date(
+            taskData.dueDate + "T00:00:00"
+        );
 
     return dueDate < today;
 
@@ -133,7 +141,7 @@ function displayTasks() {
             tasks.indexOf(taskData);
 
 
-        // Filter
+        // FILTER
 
         if (
             currentFilter === "active" &&
@@ -151,7 +159,7 @@ function displayTasks() {
         }
 
 
-        // Search
+        // SEARCH
 
         if (
             currentSearch &&
@@ -168,12 +176,16 @@ function displayTasks() {
 
 
         if (taskData.completed) {
+
             task.classList.add("completed");
+
         }
 
 
         if (isOverdue(taskData)) {
+
             task.classList.add("overdue");
+
         }
 
 
@@ -185,7 +197,7 @@ function displayTasks() {
         );
 
 
-        // Task text
+        // TASK TEXT
 
         const taskTextElement =
             document.createElement("span");
@@ -198,12 +210,26 @@ function displayTasks() {
             "click",
             function () {
 
+                const wasCompleted =
+                    taskData.completed;
+
                 taskData.completed =
                     !taskData.completed;
+
 
                 saveTasks();
 
                 displayTasks();
+
+
+                // Celebration
+
+                if (!wasCompleted &&
+                    taskData.completed) {
+
+                    showCompletionMessage();
+
+                }
 
             }
         );
@@ -214,7 +240,7 @@ function displayTasks() {
         );
 
 
-        // Priority
+        // PRIORITY
 
         const priorityElement =
             document.createElement("small");
@@ -234,7 +260,7 @@ function displayTasks() {
         );
 
 
-        // Due date
+        // DUE DATE
 
         if (taskData.dueDate) {
 
@@ -255,7 +281,7 @@ function displayTasks() {
         }
 
 
-        // Overdue
+        // OVERDUE
 
         if (isOverdue(taskData)) {
 
@@ -276,7 +302,7 @@ function displayTasks() {
         }
 
 
-        // Delete
+        // DELETE
 
         const deleteButton =
             document.createElement("button");
@@ -302,11 +328,17 @@ function displayTasks() {
         );
 
 
-        task.appendChild(taskContent);
+        task.appendChild(
+            taskContent
+        );
 
-        task.appendChild(deleteButton);
+        task.appendChild(
+            deleteButton
+        );
 
-        taskList.appendChild(task);
+        taskList.appendChild(
+            task
+        );
 
     });
 
@@ -317,7 +349,7 @@ function displayTasks() {
 
 
 // ====================
-// TASK STATISTICS
+// STATISTICS + PROGRESS
 // ====================
 
 function updateStatistics() {
@@ -331,7 +363,9 @@ function updateStatistics() {
     tasks.forEach(function (task) {
 
         if (task.completed) {
+
             completedTasks++;
+
         }
 
     });
@@ -358,6 +392,73 @@ function updateStatistics() {
 
     progressPercentageElement.textContent =
         progress + "%";
+
+
+    // Progress bar
+
+    progressBar.style.width =
+        progress + "%";
+
+
+    // Progress message
+
+    if (totalTasks === 0) {
+
+        progressMessage.textContent =
+            "Add some tasks to get started! 🚀";
+
+    } else if (progress === 0) {
+
+        progressMessage.textContent =
+            "Let's get started! 💪";
+
+    } else if (progress < 50) {
+
+        progressMessage.textContent =
+            "Good start! Keep going! 🔥";
+
+    } else if (progress < 100) {
+
+        progressMessage.textContent =
+            "You're doing great! Almost there! 🚀";
+
+    } else {
+
+        progressMessage.textContent =
+            "All tasks completed! 🎉🏆";
+
+    }
+
+}
+
+
+// ====================
+// COMPLETION MESSAGE
+// ====================
+
+function showCompletionMessage() {
+
+    const message =
+        document.createElement("div");
+
+    message.classList.add(
+        "completion-message"
+    );
+
+    message.textContent =
+        "Task completed! 🎉";
+
+
+    document.body.appendChild(
+        message
+    );
+
+
+    setTimeout(function () {
+
+        message.remove();
+
+    }, 2000);
 
 }
 
@@ -413,7 +514,8 @@ addTaskButton.addEventListener(
 
         taskDueDate.value = "";
 
-        taskPriority.value = "medium";
+        taskPriority.value =
+            "medium";
 
     }
 );
@@ -438,7 +540,7 @@ taskInput.addEventListener(
 
 
 // ====================
-// SEARCH TASKS
+// SEARCH
 // ====================
 
 taskSearch.addEventListener(
@@ -457,7 +559,7 @@ taskSearch.addEventListener(
 
 
 // ====================
-// TASK FILTERS
+// FILTERS
 // ====================
 
 const filterButtons =
@@ -505,22 +607,31 @@ filterButtons.forEach(function (button) {
 // ====================
 
 const studyStreakElement =
-    document.getElementById("studyStreak");
+    document.getElementById(
+        "studyStreak"
+    );
 
 let studyStreak =
     Number(
-        localStorage.getItem("studyStreak")
+        localStorage.getItem(
+            "studyStreak"
+        )
     ) || 0;
 
 let lastStudyDate =
-    localStorage.getItem("lastStudyDate");
+    localStorage.getItem(
+        "lastStudyDate"
+    );
 
 
 function getTodayDate() {
 
-    const today = new Date();
+    const today =
+        new Date();
 
-    return today.toISOString().split("T")[0];
+    return today
+        .toISOString()
+        .split("T")[0];
 
 }
 
@@ -532,7 +643,9 @@ function updateStudyStreak() {
 
 
     if (lastStudyDate === today) {
+
         return;
+
     }
 
 
@@ -543,7 +656,9 @@ function updateStudyStreak() {
     } else {
 
         const lastDate =
-            new Date(lastStudyDate);
+            new Date(
+                lastStudyDate
+            );
 
         const currentDate =
             new Date(today);
@@ -551,7 +666,10 @@ function updateStudyStreak() {
 
         const difference =
             Math.floor(
-                (currentDate - lastDate) /
+                (
+                    currentDate -
+                    lastDate
+                ) /
                 (1000 * 60 * 60 * 24)
             );
 
@@ -569,13 +687,15 @@ function updateStudyStreak() {
     }
 
 
-    lastStudyDate = today;
+    lastStudyDate =
+        today;
 
 
     localStorage.setItem(
         "studyStreak",
         studyStreak
     );
+
 
     localStorage.setItem(
         "lastStudyDate",
@@ -590,7 +710,11 @@ function displayStudyStreak() {
     studyStreakElement.textContent =
         studyStreak +
         " day" +
-        (studyStreak === 1 ? "" : "s");
+        (
+            studyStreak === 1
+                ? ""
+                : "s"
+        );
 
 }
 
@@ -601,39 +725,57 @@ displayStudyStreak();
 
 
 // ====================
-// POMODORO TIMER
+// POMODORO
 // ====================
 
-const WORK_TIME = 25 * 60;
-const BREAK_TIME = 5 * 60;
+const WORK_TIME =
+    25 * 60;
 
-let timeLeft = WORK_TIME;
+const BREAK_TIME =
+    5 * 60;
 
-let timerInterval = null;
+let timeLeft =
+    WORK_TIME;
 
-let isWorkSession = true;
+let timerInterval =
+    null;
+
+let isWorkSession =
+    true;
 
 
 const timerDisplay =
-    document.getElementById("timer");
+    document.getElementById(
+        "timer"
+    );
 
 const timerMode =
-    document.getElementById("timerMode");
+    document.getElementById(
+        "timerMode"
+    );
 
 const startTimerButton =
-    document.getElementById("startTimer");
+    document.getElementById(
+        "startTimer"
+    );
 
 const pauseTimerButton =
-    document.getElementById("pauseTimer");
+    document.getElementById(
+        "pauseTimer"
+    );
 
 const resetTimerButton =
-    document.getElementById("resetTimer");
+    document.getElementById(
+        "resetTimer"
+    );
 
 
 function updateTimerDisplay() {
 
     const minutes =
-        Math.floor(timeLeft / 60);
+        Math.floor(
+            timeLeft / 60
+        );
 
     const seconds =
         timeLeft % 60;
@@ -646,7 +788,9 @@ function updateTimerDisplay() {
 
 
     timerDisplay.textContent =
-        minutes + ":" + formattedSeconds;
+        minutes +
+        ":" +
+        formattedSeconds;
 
 }
 
@@ -670,9 +814,12 @@ function updateTimerMode() {
 
 function switchSession() {
 
-    clearInterval(timerInterval);
+    clearInterval(
+        timerInterval
+    );
 
-    timerInterval = null;
+    timerInterval =
+        null;
 
     isWorkSession =
         !isWorkSession;
@@ -680,7 +827,8 @@ function switchSession() {
 
     if (isWorkSession) {
 
-        timeLeft = WORK_TIME;
+        timeLeft =
+            WORK_TIME;
 
         alert(
             "Break is over! Time to study. 📚"
@@ -688,7 +836,8 @@ function switchSession() {
 
     } else {
 
-        timeLeft = BREAK_TIME;
+        timeLeft =
+            BREAK_TIME;
 
         alert(
             "Work session complete! Take a break. ☕"
@@ -708,8 +857,12 @@ startTimerButton.addEventListener(
     "click",
     function () {
 
-        if (timerInterval !== null) {
+        if (
+            timerInterval !== null
+        ) {
+
             return;
+
         }
 
 
@@ -717,7 +870,9 @@ startTimerButton.addEventListener(
             setInterval(
                 function () {
 
-                    if (timeLeft > 0) {
+                    if (
+                        timeLeft > 0
+                    ) {
 
                         timeLeft--;
 
@@ -741,9 +896,12 @@ pauseTimerButton.addEventListener(
     "click",
     function () {
 
-        clearInterval(timerInterval);
+        clearInterval(
+            timerInterval
+        );
 
-        timerInterval = null;
+        timerInterval =
+            null;
 
     }
 );
@@ -753,13 +911,18 @@ resetTimerButton.addEventListener(
     "click",
     function () {
 
-        clearInterval(timerInterval);
+        clearInterval(
+            timerInterval
+        );
 
-        timerInterval = null;
+        timerInterval =
+            null;
 
-        isWorkSession = true;
+        isWorkSession =
+            true;
 
-        timeLeft = WORK_TIME;
+        timeLeft =
+            WORK_TIME;
 
         updateTimerMode();
 
@@ -774,10 +937,14 @@ resetTimerButton.addEventListener(
 // ====================
 
 const notesElement =
-    document.getElementById("notes");
+    document.getElementById(
+        "notes"
+    );
 
 const savedNotes =
-    localStorage.getItem("studentNotes");
+    localStorage.getItem(
+        "studentNotes"
+    );
 
 
 if (savedNotes !== null) {
@@ -806,15 +973,21 @@ notesElement.addEventListener(
 // ====================
 
 const themeToggle =
-    document.getElementById("themeToggle");
+    document.getElementById(
+        "themeToggle"
+    );
 
 const savedTheme =
-    localStorage.getItem("studentTheme");
+    localStorage.getItem(
+        "studentTheme"
+    );
 
 
 if (savedTheme === "dark") {
 
-    document.body.classList.add("dark");
+    document.body.classList.add(
+        "dark"
+    );
 
     themeToggle.textContent =
         "☀️ Light Mode";
@@ -826,11 +999,15 @@ themeToggle.addEventListener(
     "click",
     function () {
 
-        document.body.classList.toggle("dark");
+        document.body.classList.toggle(
+            "dark"
+        );
 
 
         if (
-            document.body.classList.contains("dark")
+            document.body.classList.contains(
+                "dark"
+            )
         ) {
 
             localStorage.setItem(
