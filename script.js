@@ -1,5 +1,6 @@
 const taskInput = document.getElementById("taskInput");
 const taskDueDate = document.getElementById("taskDueDate");
+const taskPriority = document.getElementById("taskPriority");
 const addTaskButton = document.getElementById("addTask");
 const taskList = document.getElementById("taskList");
 
@@ -62,6 +63,25 @@ function isOverdue(taskData) {
 
 
 // ====================
+// DISPLAY PRIORITY
+// ====================
+
+function getPriorityLabel(priority) {
+
+    if (priority === "high") {
+        return "🔴 High";
+    }
+
+    if (priority === "medium") {
+        return "🟡 Medium";
+    }
+
+    return "🟢 Low";
+
+}
+
+
+// ====================
 // DISPLAY TASKS
 // ====================
 
@@ -93,16 +113,12 @@ function displayTasks() {
 
 
         if (taskData.completed) {
-
             task.classList.add("completed");
-
         }
 
 
         if (isOverdue(taskData)) {
-
             task.classList.add("overdue");
-
         }
 
 
@@ -141,6 +157,28 @@ function displayTasks() {
         );
 
 
+        // Priority
+
+        const priorityElement =
+            document.createElement("small");
+
+        priorityElement.textContent =
+            getPriorityLabel(
+                taskData.priority || "medium"
+            );
+
+        priorityElement.classList.add(
+            "task-priority"
+        );
+
+
+        taskContent.appendChild(
+            priorityElement
+        );
+
+
+        // Due Date
+
         if (taskData.dueDate) {
 
             const dueDateElement =
@@ -160,6 +198,8 @@ function displayTasks() {
         }
 
 
+        // Overdue
+
         if (isOverdue(taskData)) {
 
             const overdueElement =
@@ -178,6 +218,8 @@ function displayTasks() {
 
         }
 
+
+        // Delete Button
 
         const deleteButton =
             document.createElement("button");
@@ -229,9 +271,7 @@ function updateStatistics() {
     tasks.forEach(function (task) {
 
         if (task.completed) {
-
             completedTasks++;
-
         }
 
     });
@@ -276,6 +316,9 @@ addTaskButton.addEventListener(
         const dueDate =
             taskDueDate.value;
 
+        const priority =
+            taskPriority.value;
+
 
         if (taskText === "") {
 
@@ -292,7 +335,9 @@ addTaskButton.addEventListener(
 
             completed: false,
 
-            dueDate: dueDate
+            dueDate: dueDate,
+
+            priority: priority
 
         };
 
@@ -307,6 +352,8 @@ addTaskButton.addEventListener(
         taskInput.value = "";
 
         taskDueDate.value = "";
+
+        taskPriority.value = "medium";
 
     }
 );
@@ -381,12 +428,10 @@ filterButtons.forEach(function (button) {
 const studyStreakElement =
     document.getElementById("studyStreak");
 
-
 let studyStreak =
     Number(
         localStorage.getItem("studyStreak")
     ) || 0;
-
 
 let lastStudyDate =
     localStorage.getItem("lastStudyDate");
@@ -408,9 +453,7 @@ function updateStudyStreak() {
 
 
     if (lastStudyDate === today) {
-
         return;
-
     }
 
 
@@ -429,9 +472,7 @@ function updateStudyStreak() {
 
         const difference =
             Math.floor(
-                (
-                    currentDate - lastDate
-                ) /
+                (currentDate - lastDate) /
                 (1000 * 60 * 60 * 24)
             );
 
@@ -457,7 +498,6 @@ function updateStudyStreak() {
         studyStreak
     );
 
-
     localStorage.setItem(
         "lastStudyDate",
         lastStudyDate
@@ -469,7 +509,8 @@ function updateStudyStreak() {
 function displayStudyStreak() {
 
     studyStreakElement.textContent =
-        studyStreak + " day" +
+        studyStreak +
+        " day" +
         (studyStreak === 1 ? "" : "s");
 
 }
@@ -485,7 +526,6 @@ displayStudyStreak();
 // ====================
 
 const WORK_TIME = 25 * 60;
-
 const BREAK_TIME = 5 * 60;
 
 let timeLeft = WORK_TIME;
@@ -511,10 +551,6 @@ const resetTimerButton =
     document.getElementById("resetTimer");
 
 
-// ====================
-// TIMER DISPLAY
-// ====================
-
 function updateTimerDisplay() {
 
     const minutes =
@@ -536,10 +572,6 @@ function updateTimerDisplay() {
 }
 
 
-// ====================
-// TIMER MODE
-// ====================
-
 function updateTimerMode() {
 
     if (isWorkSession) {
@@ -556,10 +588,6 @@ function updateTimerMode() {
 
 }
 
-
-// ====================
-// SWITCH SESSION
-// ====================
 
 function switchSession() {
 
@@ -597,18 +625,12 @@ function switchSession() {
 }
 
 
-// ====================
-// START TIMER
-// ====================
-
 startTimerButton.addEventListener(
     "click",
     function () {
 
         if (timerInterval !== null) {
-
             return;
-
         }
 
 
@@ -636,10 +658,6 @@ startTimerButton.addEventListener(
 );
 
 
-// ====================
-// PAUSE TIMER
-// ====================
-
 pauseTimerButton.addEventListener(
     "click",
     function () {
@@ -651,10 +669,6 @@ pauseTimerButton.addEventListener(
     }
 );
 
-
-// ====================
-// RESET TIMER
-// ====================
 
 resetTimerButton.addEventListener(
     "click",
@@ -683,11 +697,8 @@ resetTimerButton.addEventListener(
 const notesElement =
     document.getElementById("notes");
 
-
 const savedNotes =
-    localStorage.getItem(
-        "studentNotes"
-    );
+    localStorage.getItem("studentNotes");
 
 
 if (savedNotes !== null) {
@@ -716,15 +727,10 @@ notesElement.addEventListener(
 // ====================
 
 const themeToggle =
-    document.getElementById(
-        "themeToggle"
-    );
-
+    document.getElementById("themeToggle");
 
 const savedTheme =
-    localStorage.getItem(
-        "studentTheme"
-    );
+    localStorage.getItem("studentTheme");
 
 
 if (savedTheme === "dark") {
@@ -741,15 +747,11 @@ themeToggle.addEventListener(
     "click",
     function () {
 
-        document.body.classList.toggle(
-            "dark"
-        );
+        document.body.classList.toggle("dark");
 
 
         if (
-            document.body.classList.contains(
-                "dark"
-            )
+            document.body.classList.contains("dark")
         ) {
 
             localStorage.setItem(

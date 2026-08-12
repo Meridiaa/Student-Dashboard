@@ -104,6 +104,16 @@
             id="taskDueDate"
         >
 
+        <select id="taskPriority">
+
+            <option value="high">🔴 High</option>
+
+            <option value="medium" selected>🟡 Medium</option>
+
+            <option value="low">🟢 Low</option>
+
+        </select>
+
         <button id="addTask">
             Add Task
         </button>
@@ -113,15 +123,21 @@
 
     <div class="task-filters">
 
-        <button class="filter-button active" data-filter="all">
+        <button
+            class="filter-button active"
+            data-filter="all">
             All
         </button>
 
-        <button class="filter-button" data-filter="active">
+        <button
+            class="filter-button"
+            data-filter="active">
             Active
         </button>
 
-        <button class="filter-button" data-filter="completed">
+        <button
+            class="filter-button"
+            data-filter="completed">
             Completed
         </button>
 
@@ -131,6 +147,7 @@
     <ul id="taskList"></ul>
 
 </div>
+
             <!-- Pomodoro -->
             <div class="pomodoro">
 

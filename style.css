@@ -497,3 +497,42 @@ body.dark .overdue-label {
     }
 
 }
+
+/* ====================
+   TASK PRIORITY
+==================== */
+
+#taskPriority {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    background: white;
+}
+
+
+.task-priority {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
+body.dark #taskPriority {
+    background: #17151f;
+    color: white;
+    border-color: #444;
+}
+
+
+/* ====================
+   MOBILE TASK INPUT
+==================== */
+
+@media (max-width: 768px) {
+
+    #taskPriority {
+        width: 100%;
+    }
+
+}
