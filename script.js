@@ -53,9 +53,8 @@ function isOverdue(taskData) {
 
     today.setHours(0, 0, 0, 0);
 
-    const dueDate = new Date(
-        taskData.dueDate + "T00:00:00"
-    );
+    const dueDate =
+        new Date(taskData.dueDate + "T00:00:00");
 
     return dueDate < today;
 
@@ -373,6 +372,112 @@ filterButtons.forEach(function (button) {
     );
 
 });
+
+
+// ====================
+// STUDY STREAK
+// ====================
+
+const studyStreakElement =
+    document.getElementById("studyStreak");
+
+
+let studyStreak =
+    Number(
+        localStorage.getItem("studyStreak")
+    ) || 0;
+
+
+let lastStudyDate =
+    localStorage.getItem("lastStudyDate");
+
+
+function getTodayDate() {
+
+    const today = new Date();
+
+    return today.toISOString().split("T")[0];
+
+}
+
+
+function updateStudyStreak() {
+
+    const today =
+        getTodayDate();
+
+
+    if (lastStudyDate === today) {
+
+        return;
+
+    }
+
+
+    if (lastStudyDate === null) {
+
+        studyStreak = 1;
+
+    } else {
+
+        const lastDate =
+            new Date(lastStudyDate);
+
+        const currentDate =
+            new Date(today);
+
+
+        const difference =
+            Math.floor(
+                (
+                    currentDate - lastDate
+                ) /
+                (1000 * 60 * 60 * 24)
+            );
+
+
+        if (difference === 1) {
+
+            studyStreak++;
+
+        } else {
+
+            studyStreak = 1;
+
+        }
+
+    }
+
+
+    lastStudyDate = today;
+
+
+    localStorage.setItem(
+        "studyStreak",
+        studyStreak
+    );
+
+
+    localStorage.setItem(
+        "lastStudyDate",
+        lastStudyDate
+    );
+
+}
+
+
+function displayStudyStreak() {
+
+    studyStreakElement.textContent =
+        studyStreak + " day" +
+        (studyStreak === 1 ? "" : "s");
+
+}
+
+
+updateStudyStreak();
+
+displayStudyStreak();
 
 
 // ====================

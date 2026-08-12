@@ -480,3 +480,20 @@ body.dark #taskList li.overdue {
 body.dark .overdue-label {
     color: #ff6b6b;
 }
+
+/* ====================
+   STUDY STREAK
+==================== */
+
+#studyStreak {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
