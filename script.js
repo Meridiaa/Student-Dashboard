@@ -3,6 +3,7 @@ const taskDueDate = document.getElementById("taskDueDate");
 const taskPriority = document.getElementById("taskPriority");
 const addTaskButton = document.getElementById("addTask");
 const taskList = document.getElementById("taskList");
+const taskSearch = document.getElementById("taskSearch");
 
 const totalTasksElement =
     document.getElementById("totalTasks");
@@ -24,6 +25,8 @@ let tasks =
     ) || [];
 
 let currentFilter = "all";
+
+let currentSearch = "";
 
 
 // ====================
@@ -130,6 +133,8 @@ function displayTasks() {
             tasks.indexOf(taskData);
 
 
+        // Filter
+
         if (
             currentFilter === "active" &&
             taskData.completed
@@ -146,21 +151,29 @@ function displayTasks() {
         }
 
 
+        // Search
+
+        if (
+            currentSearch &&
+            !taskData.text
+                .toLowerCase()
+                .includes(currentSearch)
+        ) {
+            return;
+        }
+
+
         const task =
             document.createElement("li");
 
 
         if (taskData.completed) {
-
             task.classList.add("completed");
-
         }
 
 
         if (isOverdue(taskData)) {
-
             task.classList.add("overdue");
-
         }
 
 
@@ -171,6 +184,8 @@ function displayTasks() {
             "task-content"
         );
 
+
+        // Task text
 
         const taskTextElement =
             document.createElement("span");
@@ -219,7 +234,7 @@ function displayTasks() {
         );
 
 
-        // Due Date
+        // Due date
 
         if (taskData.dueDate) {
 
@@ -261,7 +276,7 @@ function displayTasks() {
         }
 
 
-        // Delete Button
+        // Delete
 
         const deleteButton =
             document.createElement("button");
@@ -316,9 +331,7 @@ function updateStatistics() {
     tasks.forEach(function (task) {
 
         if (task.completed) {
-
             completedTasks++;
-
         }
 
     });
@@ -419,6 +432,25 @@ taskInput.addEventListener(
             addTaskButton.click();
 
         }
+
+    }
+);
+
+
+// ====================
+// SEARCH TASKS
+// ====================
+
+taskSearch.addEventListener(
+    "input",
+    function () {
+
+        currentSearch =
+            taskSearch.value
+                .toLowerCase()
+                .trim();
+
+        displayTasks();
 
     }
 );
@@ -573,7 +605,6 @@ displayStudyStreak();
 // ====================
 
 const WORK_TIME = 25 * 60;
-
 const BREAK_TIME = 5 * 60;
 
 let timeLeft = WORK_TIME;

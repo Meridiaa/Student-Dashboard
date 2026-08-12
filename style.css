@@ -536,3 +536,39 @@ body.dark #taskPriority {
     }
 
 }
+
+/* ====================
+   TASK SEARCH
+==================== */
+
+.task-search {
+    margin-top: 15px;
+}
+
+
+#taskSearch {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+
+#taskSearch:focus {
+    border-color: #6c4ccf;
+}
+
+
+body.dark #taskSearch {
+    background: #17151f;
+    color: white;
+    border-color: #444;
+}
+
+
+body.dark #taskSearch::placeholder {
+    color: #999;
+}
