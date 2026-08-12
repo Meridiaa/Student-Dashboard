@@ -362,3 +362,41 @@ body.dark #taskList li {
     }
 
 }
+
+/* ====================
+   TASK FILTERS
+==================== */
+
+.task-filters {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+.filter-button {
+    background: transparent;
+    color: #6c4ccf;
+    border: 1px solid #6c4ccf;
+    padding: 7px 14px;
+    font-size: 13px;
+}
+
+
+.filter-button.active {
+    background: #6c4ccf;
+    color: white;
+}
+
+
+body.dark .filter-button {
+    color: #a98df5;
+    border-color: #a98df5;
+}
+
+
+body.dark .filter-button.active {
+    background: #6c4ccf;
+    color: white;
+}

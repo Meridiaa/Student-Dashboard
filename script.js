@@ -13,6 +13,8 @@ const progressPercentageElement = document.getElementById("progressPercentage");
 
 let tasks = JSON.parse(localStorage.getItem("studentTasks")) || [];
 
+let currentFilter = "all";
+
 
 // ====================
 // SAVE TASKS
@@ -36,45 +38,77 @@ function displayTasks() {
 
     taskList.innerHTML = "";
 
+
     tasks.forEach(function (taskData, index) {
 
-        const task = document.createElement("li");
-
-        if (taskData.completed) {
-            task.classList.add("completed");
+        if (
+            currentFilter === "active" &&
+            taskData.completed
+        ) {
+            return;
         }
 
 
-        const taskTextElement = document.createElement("span");
-
-        taskTextElement.textContent = taskData.text;
-
-
-        taskTextElement.addEventListener("click", function () {
-
-            taskData.completed = !taskData.completed;
-
-            saveTasks();
-
-            displayTasks();
-
-        });
+        if (
+            currentFilter === "completed" &&
+            !taskData.completed
+        ) {
+            return;
+        }
 
 
-        const deleteButton = document.createElement("button");
+        const task = document.createElement("li");
+
+
+        if (taskData.completed) {
+
+            task.classList.add("completed");
+
+        }
+
+
+        const taskTextElement =
+            document.createElement("span");
+
+
+        taskTextElement.textContent =
+            taskData.text;
+
+
+        taskTextElement.addEventListener(
+            "click",
+            function () {
+
+                taskData.completed =
+                    !taskData.completed;
+
+                saveTasks();
+
+                displayTasks();
+
+            }
+        );
+
+
+        const deleteButton =
+            document.createElement("button");
+
 
         deleteButton.textContent = "Delete";
 
 
-        deleteButton.addEventListener("click", function () {
+        deleteButton.addEventListener(
+            "click",
+            function () {
 
-            tasks.splice(index, 1);
+                tasks.splice(index, 1);
 
-            saveTasks();
+                saveTasks();
 
-            displayTasks();
+                displayTasks();
 
-        });
+            }
+        );
 
 
         task.appendChild(taskTextElement);
@@ -105,7 +139,9 @@ function updateStatistics() {
     tasks.forEach(function (task) {
 
         if (task.completed) {
+
             completedTasks++;
+
         }
 
     });
@@ -123,9 +159,11 @@ function updateStatistics() {
     }
 
 
-    totalTasksElement.textContent = totalTasks;
+    totalTasksElement.textContent =
+        totalTasks;
 
-    completedTasksElement.textContent = completedTasks;
+    completedTasksElement.textContent =
+        completedTasks;
 
     progressPercentageElement.textContent =
         progress + "%";
@@ -137,51 +175,98 @@ function updateStatistics() {
 // ADD TASK
 // ====================
 
-addTaskButton.addEventListener("click", function () {
+addTaskButton.addEventListener(
+    "click",
+    function () {
 
-    const taskText = taskInput.value.trim();
+        const taskText =
+            taskInput.value.trim();
 
 
-    if (taskText === "") {
+        if (taskText === "") {
 
-        alert("Please enter a task.");
+            alert("Please enter a task.");
 
-        return;
+            return;
+
+        }
+
+
+        const newTask = {
+
+            text: taskText,
+
+            completed: false
+
+        };
+
+
+        tasks.push(newTask);
+
+        saveTasks();
+
+        displayTasks();
+
+        taskInput.value = "";
 
     }
-
-
-    const newTask = {
-
-        text: taskText,
-
-        completed: false
-
-    };
-
-
-    tasks.push(newTask);
-
-    saveTasks();
-
-    displayTasks();
-
-    taskInput.value = "";
-
-});
+);
 
 
 // ====================
-// ENTER KEY FOR TASK
+// ENTER KEY
 // ====================
 
-taskInput.addEventListener("keydown", function (event) {
+taskInput.addEventListener(
+    "keydown",
+    function (event) {
 
-    if (event.key === "Enter") {
+        if (event.key === "Enter") {
 
-        addTaskButton.click();
+            addTaskButton.click();
+
+        }
 
     }
+);
+
+
+// ====================
+// TASK FILTERS
+// ====================
+
+const filterButtons =
+    document.querySelectorAll(".filter-button");
+
+
+filterButtons.forEach(function (button) {
+
+    button.addEventListener(
+        "click",
+        function () {
+
+            currentFilter =
+                button.dataset.filter;
+
+
+            filterButtons.forEach(
+                function (button) {
+
+                    button.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+            button.classList.add("active");
+
+
+            displayTasks();
+
+        }
+    );
 
 });
 
@@ -201,9 +286,11 @@ let timerInterval = null;
 let isWorkSession = true;
 
 
-const timerDisplay = document.getElementById("timer");
+const timerDisplay =
+    document.getElementById("timer");
 
-const timerMode = document.getElementById("timerMode");
+const timerMode =
+    document.getElementById("timerMode");
 
 const startTimerButton =
     document.getElementById("startTimer");
@@ -216,19 +303,22 @@ const resetTimerButton =
 
 
 // ====================
-// UPDATE TIMER DISPLAY
+// TIMER DISPLAY
 // ====================
 
 function updateTimerDisplay() {
 
-    const minutes = Math.floor(timeLeft / 60);
+    const minutes =
+        Math.floor(timeLeft / 60);
 
-    const seconds = timeLeft % 60;
+    const seconds =
+        timeLeft % 60;
 
 
-    const formattedSeconds = seconds < 10
-        ? "0" + seconds
-        : seconds;
+    const formattedSeconds =
+        seconds < 10
+            ? "0" + seconds
+            : seconds;
 
 
     timerDisplay.textContent =
@@ -238,7 +328,7 @@ function updateTimerDisplay() {
 
 
 // ====================
-// UPDATE TIMER MODE
+// TIMER MODE
 // ====================
 
 function updateTimerMode() {
@@ -268,7 +358,8 @@ function switchSession() {
 
     timerInterval = null;
 
-    isWorkSession = !isWorkSession;
+    isWorkSession =
+        !isWorkSession;
 
 
     if (isWorkSession) {
@@ -301,70 +392,83 @@ function switchSession() {
 // START TIMER
 // ====================
 
-startTimerButton.addEventListener("click", function () {
+startTimerButton.addEventListener(
+    "click",
+    function () {
 
-    if (timerInterval !== null) {
+        if (timerInterval !== null) {
 
-        return;
-
-    }
-
-
-    timerInterval = setInterval(function () {
-
-        if (timeLeft > 0) {
-
-            timeLeft--;
-
-            updateTimerDisplay();
-
-        } else {
-
-            switchSession();
+            return;
 
         }
 
-    }, 1000);
 
-});
+        timerInterval =
+            setInterval(
+                function () {
+
+                    if (timeLeft > 0) {
+
+                        timeLeft--;
+
+                        updateTimerDisplay();
+
+                    } else {
+
+                        switchSession();
+
+                    }
+
+                },
+                1000
+            );
+
+    }
+);
 
 
 // ====================
 // PAUSE TIMER
 // ====================
 
-pauseTimerButton.addEventListener("click", function () {
+pauseTimerButton.addEventListener(
+    "click",
+    function () {
 
-    clearInterval(timerInterval);
+        clearInterval(timerInterval);
 
-    timerInterval = null;
+        timerInterval = null;
 
-});
+    }
+);
 
 
 // ====================
 // RESET TIMER
 // ====================
 
-resetTimerButton.addEventListener("click", function () {
+resetTimerButton.addEventListener(
+    "click",
+    function () {
 
-    clearInterval(timerInterval);
+        clearInterval(timerInterval);
 
-    timerInterval = null;
+        timerInterval = null;
 
-    isWorkSession = true;
+        isWorkSession = true;
 
-    timeLeft = WORK_TIME;
+        timeLeft = WORK_TIME;
 
-    updateTimerMode();
+        updateTimerMode();
 
-    updateTimerDisplay();
+        updateTimerDisplay();
 
-});
+    }
+);
 
 
 // ====================
-// NOTES + LOCAL STORAGE
+// NOTES
 // ====================
 
 const notesElement =
@@ -377,19 +481,80 @@ const savedNotes =
 
 if (savedNotes !== null) {
 
-    notesElement.value = savedNotes;
+    notesElement.value =
+        savedNotes;
 
 }
 
 
-notesElement.addEventListener("input", function () {
+notesElement.addEventListener(
+    "input",
+    function () {
 
-    localStorage.setItem(
-        "studentNotes",
-        notesElement.value
-    );
+        localStorage.setItem(
+            "studentNotes",
+            notesElement.value
+        );
 
-});
+    }
+);
+
+
+// ====================
+// DARK MODE
+// ====================
+
+const themeToggle =
+    document.getElementById("themeToggle");
+
+
+const savedTheme =
+    localStorage.getItem("studentTheme");
+
+
+if (savedTheme === "dark") {
+
+    document.body.classList.add("dark");
+
+    themeToggle.textContent =
+        "☀️ Light Mode";
+
+}
+
+
+themeToggle.addEventListener(
+    "click",
+    function () {
+
+        document.body.classList.toggle("dark");
+
+
+        if (
+            document.body.classList.contains("dark")
+        ) {
+
+            localStorage.setItem(
+                "studentTheme",
+                "dark"
+            );
+
+            themeToggle.textContent =
+                "☀️ Light Mode";
+
+        } else {
+
+            localStorage.setItem(
+                "studentTheme",
+                "light"
+            );
+
+            themeToggle.textContent =
+                "🌙 Dark Mode";
+
+        }
+
+    }
+);
 
 
 // ====================
@@ -401,42 +566,3 @@ displayTasks();
 updateTimerMode();
 
 updateTimerDisplay();
-
-// ====================
-// DARK MODE
-// ====================
-
-const themeToggle = document.getElementById("themeToggle");
-
-const savedTheme = localStorage.getItem("studentTheme");
-
-
-if (savedTheme === "dark") {
-
-    document.body.classList.add("dark");
-
-    themeToggle.textContent = "☀️ Light Mode";
-
-}
-
-
-themeToggle.addEventListener("click", function () {
-
-    document.body.classList.toggle("dark");
-
-
-    if (document.body.classList.contains("dark")) {
-
-        localStorage.setItem("studentTheme", "dark");
-
-        themeToggle.textContent = "☀️ Light Mode";
-
-    } else {
-
-        localStorage.setItem("studentTheme", "light");
-
-        themeToggle.textContent = "🌙 Dark Mode";
-
-    }
-
-});

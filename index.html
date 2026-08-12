@@ -78,29 +78,46 @@
         <section class="dashboard-grid">
 
 
-            <!-- Tasks -->
-            <div class="tasks">
+<!-- Tasks Section -->
+<div class="tasks">
 
-                <h2>Today's Tasks</h2>
+    <h2>Today's Tasks</h2>
 
-                <div class="task-input">
+    <div class="task-input">
 
-                    <input
-                        type="text"
-                        id="taskInput"
-                        placeholder="Enter a task..."
-                    >
+        <input
+            type="text"
+            id="taskInput"
+            placeholder="Enter a task..."
+        >
 
-                    <button id="addTask">
-                        Add Task
-                    </button>
+        <button id="addTask">
+            Add Task
+        </button>
 
-                </div>
+    </div>
 
 
-                <ul id="taskList"></ul>
+    <div class="task-filters">
 
-            </div>
+        <button class="filter-button active" data-filter="all">
+            All
+        </button>
+
+        <button class="filter-button" data-filter="active">
+            Active
+        </button>
+
+        <button class="filter-button" data-filter="completed">
+            Completed
+        </button>
+
+    </div>
+
+
+    <ul id="taskList"></ul>
+
+</div>
 
 
             <!-- Pomodoro -->
